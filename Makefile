@@ -12,7 +12,7 @@ IDIR=
 LDIR=
 
 
-OPTFLAGS= -O3 -fgraphite-identity -floop-interchange -floop-strip-mine -floop-block -floop-parallelize-all -mtune=bdver2 -march=bdver2
+OPTFLAGS= -O3 -fgraphite-identity -floop-interchange -floop-strip-mine -floop-block -floop-parallelize-all
 
 SPECIALFLAGS=$(IDIR)
 
@@ -35,12 +35,12 @@ CFLAGS=$(SPECIALFLAGS) $(OPTFLAGS) $(PRJ_CFLAGS)
 clean: .SYMBOLIC
 	@echo Deleting build\main.o and related files
 	@$(RM) "build\main.o"
-	@echo Deleting program.exe
-	@$(RM) "program.exe"
+	@echo Deleting logisticmap.exe
+	@$(RM) "logisticmap.exe"
 
-"program.exe":  "build\main.o" "build\mandelarea.prj.target"
-	@echo Generating program.exe
-	@$(FC) -o "program.exe" -static -fopenmp "build\main.o" $(LDIR) $(PRJ_LFLAGS)
+"logisticmap.exe":  "build\main.o" "build\mandelarea.prj.target"
+	@echo Generating logisticmap.exe
+	@$(FC) -o "logisticmap.exe" -static -fopenmp "build\main.o" $(LDIR) $(PRJ_LFLAGS)
 
-all: "program.exe" .SYMBOLIC
+all: "logisticmap.exe" .SYMBOLIC
 

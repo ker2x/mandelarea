@@ -1,1 +1,3 @@
 C++.gitignore
+logisticmap.exe
+*.o

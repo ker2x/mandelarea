@@ -1,1 +1,61 @@
-{"Name":"Untitled (target.exe)","Root":{"Name":"+Untitled (target.exe)","Files":[],"Folders":[]},"Options":{"Type": 0,"Auto Makefile": 1,"Build Dependencies": 1}}
+{
+  "Root":{
+    "Folders":[],
+    "Name":"+mandelarea (logisticmap.exe)",
+    "Files":[{
+        "filename":".\\main.f90",
+        "enabled":"1"
+      }]
+  },
+  "Name":"mandelarea (logisticmap.exe)",
+  "Options":{
+    "Compiler Options":{
+      "Fortran Flags":"-ffast-math -floop-parallelize-all -ftree-parallelize-loops=4",
+      "Link Flags":"-lappgraphics -lgdi32 -lcomdlg32 -lcomctl32 -luuid -loleaut32 -lole32",
+      "C Flags":""
+    },
+    "Architecture":1,
+    "Type":0,
+    "Revision":2,
+    "Windows GUI":0,
+    "File Options":{
+      "Library Directories":["Default Add-On Directory"],
+      "Build Directory":"build",
+      "Module Directory":"modules",
+      "Include Directories":["Default Add-On Include Directory"]
+    },
+    "Target":"logisticmap.exe",
+    "Fortran Options":{
+      "Use C Preprocessor":"false",
+      "Runtime Diagnostics":"false",
+      "Cray Pointers":"false",
+      "Enable OpenMP":"true",
+      "Enable Coarrays":"false",
+      "Default Double for Real":"false"
+    },
+    "Code Generation Options":{
+      "CPU Specific":"true",
+      "Processor":"generic",
+      "Aggressive Loops":"true",
+      "Debugging":"false",
+      "Optimization Mode":3,
+      "Profiling":"false"
+    },
+    "Build Dependencies":1,
+    "Launch Options":{
+      "Working Directory":"",
+      "Keep Console":"true",
+      "External Console":"false",
+      "Command Line Arguments":"",
+      "Build Before Launch":"true"
+    },
+    "Build Options":{
+      "Makefile":"Makefile",
+      "Auto Makefile":"true"
+    },
+    "Linker Options":{
+      "Static Linking Mode":7,
+      "Link LAPACK":0
+    }
+  }
+}
