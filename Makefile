@@ -35,12 +35,12 @@ CFLAGS=$(SPECIALFLAGS) $(OPTFLAGS) $(PRJ_CFLAGS)
 clean: .SYMBOLIC
 	@echo Deleting build\main.o and related files
 	@$(RM) "build\main.o"
-	@echo Deleting logisticmap.exe
-	@$(RM) "logisticmap.exe"
+	@echo Deleting program.exe
+	@$(RM) "program.exe"
 
-"logisticmap.exe":  "build\main.o" "build\mandelarea.prj.target"
-	@echo Generating logisticmap.exe
-	@$(FC) -o "logisticmap.exe" -static -fopenmp "build\main.o" $(LDIR) $(PRJ_LFLAGS)
+"program.exe":  "build\main.o" "build\mandelarea.prj.target"
+	@echo Generating program.exe
+	@$(FC) -o "program.exe" -static -fopenmp "build\main.o" $(LDIR) $(PRJ_LFLAGS)
 
-all: "logisticmap.exe" .SYMBOLIC
+all: "program.exe" .SYMBOLIC
 

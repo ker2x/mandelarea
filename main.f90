@@ -1,27 +1,25 @@
 program mandelarea
-!http://idris.fr/formations/fortran
+
 use aplot
+
 implicit none
 
 type(aplot_t)::p
+
 real, dimension(:), allocatable :: x !x-axis
 real, dimension(:), allocatable :: inside    !notinmset counter
 real, dimension(:), allocatable :: outside   !inmset counter
 
-real :: r, i    !real & imaginary to create a random complex
+real    :: r, i !real & imaginary to create a random complex
 complex :: z    !the random complex to be initialized
 integer :: b, j ! loop stuff
-integer :: currentiter = 0
 
+integer :: currentiter = 0
 integer, parameter :: startiter = 100            !start at iteration startiter
 integer, parameter :: iterstep = 100           !add(or mult by) iterstep at each batch
 integer, parameter :: batch = 100               !number of point on x-axis
-integer, parameter :: loopmax = 1000000          !montecarlo loop
+integer, parameter :: loopmax = 500000          !montecarlo loop
 
-print *, "Starting MandelArea"
-
-
-!le code par ici
 ALLOCATE(x(batch)) 
 ALLOCATE(inside(batch)) 
 ALLOCATE(outside(batch)) 
@@ -33,9 +31,11 @@ currentiter =  startiter
 
 DO b = 1, batch
     x(b) = real(currentiter)
-    do j = 1, loopmax
+    !try some omp stuff in the inner loop ?
+    DO j = 1, loopmax
         call random_number(r)
         call random_number(i)    
+
         do while(abs(cmplx(r,i)) .GT. 2.0)
             call random_number(r)
             call random_number(i)    
@@ -55,7 +55,6 @@ end do
 
 p = initialize_plot()
 call add_dataset(p, x, (inside / outside) * 100.0)
-!call set_yscale (p, minval(outside / inside), maxval(outside / inside))
 call set_yscale(p,9.0,12.0)
 !call set_xscale(p,real(startiter), real(currentiter))
 !call set_xlogarithmic (p,2.0)
@@ -74,6 +73,7 @@ DEALLOCATE(outside)
 CONTAINS 
 
 pure function isInMSet(c, maxiter)
+
     complex, intent(in) :: c
     integer, intent(in) :: maxiter
     integer :: n
@@ -96,6 +96,7 @@ pure function isInMSet(c, maxiter)
     else
         isInMset = .FALSE.
     end if    
+
 end function isInMSet
 
 end program mandelarea

@@ -1,3 +1,4 @@
 C++.gitignore
 logisticmap.exe
 *.o
+gmon.out

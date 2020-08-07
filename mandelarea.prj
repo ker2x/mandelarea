@@ -24,7 +24,7 @@
       "Module Directory":"modules",
       "Include Directories":["Default Add-On Include Directory"]
     },
-    "Target":"logisticmap.exe",
+    "Target":"program.exe",
     "Fortran Options":{
       "Use C Preprocessor":"false",
       "Runtime Diagnostics":"false",
@@ -39,7 +39,7 @@
       "Aggressive Loops":"true",
       "Debugging":"false",
       "Optimization Mode":3,
-      "Profiling":"false"
+      "Profiling":"true"
     },
     "Build Dependencies":1,
     "Launch Options":{
