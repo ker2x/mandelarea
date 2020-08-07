@@ -32,30 +32,35 @@ currentiter =  startiter
 DO b = 1, batch
     x(b) = real(currentiter)
     !try some omp stuff in the inner loop ?
+    !$OMP PARALLEL DO DEFAULT(NONE) SHARED(inside, outside,b,currentiter) private(z,r,i,x)
     DO j = 1, loopmax
         call random_number(r)
         call random_number(i)    
+        !z = CMPLX(r*2.5-2, i*2.6-1.3)    
+        z = CMPLX(r*4.0-2.0, i*4.0-2.0)    
 
-        do while(abs(cmplx(r,i)) .GT. 2.0)
+        do while(abs(z) .GT. 2.0)
             call random_number(r)
             call random_number(i)    
+            z = CMPLX(r*4.0-2.0, i*4.0-2.0)    
         end do
 
-!        z = CMPLX(r*2.5-2, i*2.6-1.3)    
-        z = CMPLX(r*4.0-2.0, i*4.0-2.0)    
         if(isInMSet(z, currentiter)) then
+            !$omp atomic update
             inside(b) = inside(b) + 1
         else
+            !$omp atomic update
             outside(b) = outside(b) + 1
         end if
     end do
-    print *, b, currentiter, (inside(b) / outside(b)) * 100.0
+    !$OMP END PARALLEL DO
+    print *, b, currentiter, inside(b), outside(b), (inside(b) / outside(b)) * 100.0
     currentiter = currentiter + iterstep
 end do
 
 p = initialize_plot()
 call add_dataset(p, x, (inside / outside) * 100.0)
-call set_yscale(p,9.0,12.0)
+!call set_yscale(p,9.0,12.0)
 !call set_xscale(p,real(startiter), real(currentiter))
 !call set_xlogarithmic (p,2.0)
 call set_xlabel(p, "iteration")

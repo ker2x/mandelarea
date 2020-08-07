@@ -1,13 +1,13 @@
 {
   "Root":{
     "Folders":[],
-    "Name":"+mandelarea (logisticmap.exe)",
+    "Name":"+mandelarea (program.exe)",
     "Files":[{
         "filename":".\\main.f90",
         "enabled":"1"
       }]
   },
-  "Name":"mandelarea (logisticmap.exe)",
+  "Name":"mandelarea (program.exe)",
   "Options":{
     "Compiler Options":{
       "Fortran Flags":"-ffast-math -floop-parallelize-all -ftree-parallelize-loops=4",
@@ -34,12 +34,12 @@
       "Default Double for Real":"false"
     },
     "Code Generation Options":{
-      "CPU Specific":"true",
+      "CPU Specific":"false",
       "Processor":"generic",
       "Aggressive Loops":"true",
       "Debugging":"false",
       "Optimization Mode":3,
-      "Profiling":"true"
+      "Profiling":"false"
     },
     "Build Dependencies":1,
     "Launch Options":{
