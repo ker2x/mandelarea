@@ -18,7 +18,7 @@ integer :: currentiter = 0
 integer, parameter :: startiter = 100            !start at iteration startiter
 integer, parameter :: iterstep = 100           !add(or mult by) iterstep at each batch
 integer, parameter :: batch = 100               !number of point on x-axis
-integer, parameter :: loopmax = 500000          !montecarlo loop
+integer, parameter :: loopmax = 100000          !montecarlo loop
 
 ALLOCATE(x(batch)) 
 ALLOCATE(inside(batch)) 
@@ -30,8 +30,11 @@ outside = 0
 currentiter =  startiter
 
 DO b = 1, batch
-    x(b) = real(currentiter)
-    !try some omp stuff in the inner loop ?
+    x(b) = b - 1
+end do
+
+DO b = 1, batch
+    !x(b) = real(currentiter)
     !$OMP PARALLEL DO DEFAULT(NONE) SHARED(inside, outside,b,currentiter) private(z,r,i,x)
     DO j = 1, loopmax
         call random_number(r)
@@ -48,18 +51,21 @@ DO b = 1, batch
         if(isInMSet(z, currentiter)) then
             !$omp atomic update
             inside(b) = inside(b) + 1
-        else
-            !$omp atomic update
-            outside(b) = outside(b) + 1
+!        else
+!            !!$omp atomic update
+!            outside(b) = outside(b) + 1
         end if
     end do
     !$OMP END PARALLEL DO
-    print *, b, currentiter, inside(b), outside(b), (inside(b) / outside(b)) * 100.0
+    print *, b, currentiter, inside(b), loopmax - inside(b), (inside(b) / (loopmax - inside(b)) * 100.0)
     currentiter = currentiter + iterstep
 end do
 
+print *, "average : ", sum((inside / (loopmax - inside) * 100.0) / batch)
+
 p = initialize_plot()
-call add_dataset(p, x, (inside / outside) * 100.0)
+call add_dataset(p, x, (inside / (loopmax - inside)) * 100.0)
+!call add_dataset(p, x, (inside / (loopmax)) * 100.0)
 !call set_yscale(p,9.0,12.0)
 !call set_xscale(p,real(startiter), real(currentiter))
 !call set_xlogarithmic (p,2.0)
